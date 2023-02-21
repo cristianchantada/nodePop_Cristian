@@ -16,3 +16,19 @@ router.get("/", async function (req, res, next){
 })
 
 module.exports = router;
+
+// POST /api/anuncios Inserción de anuncio desde el request body.
+
+router.post("/", async function(req, res, next){
+    try {
+        const anuncioDatos = req.body;
+        const anuncio = new Anuncio(anuncioDatos);
+
+        const resultado = await anuncio.save();
+
+        res.json(resultado);
+        
+    } catch (error) {
+        next(error);
+    }
+});
