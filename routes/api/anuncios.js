@@ -20,7 +20,7 @@ const Anuncio = require("../../models/Anuncio");
 
 
             const anuncios = await Anuncio.find();
-            res.json({anuncios: anuncios});
+            res.render("index", {resultado: anuncios});
 
         } catch (error) {
             next (error);
@@ -33,7 +33,7 @@ router.get("/:id", async function (req, res, next){
     try {
         const anuncioId = req.params.id;
         const anuncioDevuelto = await Anuncio.findById(anuncioId);
-        res.json({anuncio: anuncioDevuelto});
+        res.render("index", {resultado: [anuncioDevuelto]});
 
     } catch (error) {
         next (error);
@@ -49,7 +49,7 @@ router.post("/", async function(req, res, next){
 
         const resultado = await anuncio.save();
 
-        res.json({Anuncio_añadido: resultado});
+        res.render("index", {resultado: [resultado]});
         
     } catch (error) {
         next(error);
@@ -65,7 +65,7 @@ router.put("/:id", async function(req, res, next){
 
         const anuncioUpdated = await Anuncio.findByIdAndUpdate(anuncioId, anuncioDatos, {new: true});
 
-        res.json({result: anuncioUpdated});
+        res.render("index", {resultado: [anuncioUpdated]});
         
     } catch (error) {
         next(error);
@@ -80,7 +80,7 @@ router.delete("/:id", async function(req, res, next){
         
         await Anuncio.deleteOne({_id: anuncioId});
 
-        res.json({delete: true});
+        res.render("index", {resultado: [{delete: true}]});
         
     } catch (error) {
         next(error);

@@ -7,5 +7,37 @@
   <body>
     <h1><%= title %></h1>
     <p>Welcome to <%= title %></p>
+	<br>
+<% if (resultado === {delete: true}) {%>
+	<p>Anuncio borrado correctamente</p>
+<% } %>
+	<table class="styled-table">
+		<thead>
+			<td><b>Venta / compra</b></td>
+			<td style="text-align: left;"><b>Nombre</b></td>
+			<td><b>Precio</b</td>
+			<td><b>Foto</b</td>
+			<td><b>Tags</b</td>
+		</thead>
+		<tbody>
+<% resultado.forEach(anuncio => { %>
+			<tr style="text-align: center">
+<% if(anuncio.venta === true) { %>
+				<td>Vendo</td>
+<% } else { %>
+				<td>Compro</td>
+<% } %>
+				<td style="text-align: left"><%= anuncio.nombre %></td>
+				<td><%= anuncio.precio %></td>
+				<td><%= anuncio.foto %></td>
+				<td><%= anuncio.tags %></td>
+			</tr>
+<% }); %>		
+		</tbody>
+	</table>
+
+
+
+
   </body>
 </html>

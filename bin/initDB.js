@@ -9,7 +9,7 @@ async function initAnuncios (){
     console.log(`Se han borrado un total de ${deleted.deletedCount} documentos`)
 
     const insert = [
-        {nombre: "Caja de melocotones", venta: true, precio: 9.99 , foto: "melocotones.jpg", tags: ["lifestyle"]},
+        {nombre: "Caja de melocotones", venta: false, precio: 9.99 , foto: "melocotones.jpg", tags: ["lifestyle"]},
         {nombre: "Patinete viejo", venta: true, precio: 23.00 , foto: "patinete.jpg", tags: ["motor"]},
         {nombre: "Chupa-chups caducados", venta: true, precio: 9.99 , foto: "chupa-chups.jpg", tags: ["lifestyle"]},
         {nombre: "Bragas 'vintage' de mi abuela, poco uso", venta: true, precio: 4.99, foto: "bragas.jpg", tags: ["lifestyle"]} 
