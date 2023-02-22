@@ -6,20 +6,37 @@ const Anuncio = require("../../models/Anuncio");
 
     router.get("/", async function (req, res, next){
         try {
-            const query = req.query;
 
-            const filterByName = query.nombre;
-            const filterBySale = query.venta;
-            const filterByPrice = query.precio;
-            const filterBytag = query.tag;
+            const filterByName = req.query.nombre;
+            const filterBySale = req.query.venta;
+            const filterByPrice = req.query.precio;
+            const filterByTags = req.query.tag;
 
-            const select = query.select;
-            const skip = query.skip;
-            const limit = query.limit;
-            const sort = query.sort;
+            const select = req.query.select;
+            const skip = req.query.skip;
+            const limit = req.query.limit;
+            const sort = req.query.sort;
+
+            const filtro = {};
+
+            if (filterByName) {
+                filtro.nombre = filterByName;
+              }
+            
+            if (filterBySale) {
+            filtro.venta = filterBySale;
+            }
+
+            if (filterByPrice) {
+            filtro.precio = filterByPrice;
+            }
+
+            if (filterByTags) {
+            filtro.tag = filterByTags;
+            }
 
 
-            const anuncios = await Anuncio.find();
+            const anuncios = await Anuncio.filtrado(filtro, select, skip, limit, sort);
             res.render("index", {resultado: anuncios});
 
         } catch (error) {

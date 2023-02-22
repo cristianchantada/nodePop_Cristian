@@ -10,7 +10,7 @@
 	<br>
 <% if (resultado === {delete: true}) {%>
 	<p>Anuncio borrado correctamente</p>
-<% } %>
+<% } else { %>
 	<table class="styled-table">
 		<thead>
 			<td><b>Venta / compra</b></td>
@@ -20,24 +20,21 @@
 			<td><b>Tags</b</td>
 		</thead>
 		<tbody>
-<% resultado.forEach(anuncio => { %>
+	<% resultado.forEach(anuncio => { %>
 			<tr style="text-align: center">
-<% if(anuncio.venta === true) { %>
+	<% if(anuncio.venta === true) { %>
 				<td>Vendo</td>
-<% } else { %>
+	<% } else { %>
 				<td>Compro</td>
-<% } %>
+	<% } %>
 				<td style="text-align: left"><%= anuncio.nombre %></td>
 				<td><%= anuncio.precio %></td>
 				<td><%= anuncio.foto %></td>
 				<td><%= anuncio.tags %></td>
 			</tr>
-<% }); %>		
+	<% }); %>		
 		</tbody>
 	</table>
-
-
-
-
+<% } %>
   </body>
 </html>
