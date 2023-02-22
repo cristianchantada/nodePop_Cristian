@@ -5,7 +5,7 @@ const anuncioSchema = mongoose.Schema({
     venta: Boolean,
     precio: Number,
     foto: String,
-    tags: Array,
+    tags: [String],
 });
 
 anuncioSchema.statics.filtrado = function (filtro, select, skip, limit, sort){

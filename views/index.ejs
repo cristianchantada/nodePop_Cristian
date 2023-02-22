@@ -16,8 +16,8 @@
 			<td><b>Venta / compra</b></td>
 			<td style="text-align: left;"><b>Nombre</b></td>
 			<td><b>Precio</b</td>
-			<td><b>Foto</b</td>
 			<td><b>Tags</b</td>
+			<td><b>Foto</b</td>
 		</thead>
 		<tbody>
 	<% resultado.forEach(anuncio => { %>
@@ -29,8 +29,8 @@
 	<% } %>
 				<td style="text-align: left"><%= anuncio.nombre %></td>
 				<td><%= anuncio.precio %></td>
-				<td><%= anuncio.foto %></td>
 				<td><%= anuncio.tags %></td>
+				<td><img src="/images/<%=anuncio.foto%>" alt=""></td>
 			</tr>
 	<% }); %>		
 		</tbody>
