@@ -1,10 +1,15 @@
 const express = require("express");
 const router = express.Router();
 const Anuncio = require("../../models/Anuncio");
+const {query, param, body, validationResult} = require("express-validator");
 
 // GET api/anuncios/ --> Devuelve una lista filtrada de anuncios según los parámetros introducidos en la query string.
 
-    router.get("/", async function (req, res, next){
+    router.get("/", 
+    [
+
+    ], 
+    async function (req, res, next){
         try {
 
             const filterByName = req.query.nombre;
@@ -59,35 +64,47 @@ router.get("/:id", async function (req, res, next){
 
 // POST /api/anuncios --> Inserción de anuncio desde el request body.
 
-router.post("/", async function(req, res, next){
-    try {
-        const anuncioDatos = req.body;
-        const anuncio = new Anuncio(anuncioDatos);
+router.post("/", [
+    body("precio").isNumeric().withMessage("El precio debe ser una cantidad numérica"),
+    body("venta").isBoolean().withMessage("Para la venta debe introducir un valor booleano: true si quiere vender / false si desea comprar") 
+]
+,
+    async function(req, res, next){
+        try {
+            const anuncioDatos = req.body;
+            const anuncio = new Anuncio(anuncioDatos);
 
-        const resultado = await anuncio.save();
+            const resultado = await anuncio.save();
 
-        res.render("index", {resultado: [resultado]});
-        
-    } catch (error) {
-        next(error);
+            res.render("index", {resultado: [resultado]});
+            
+        } catch (error) {
+            next(error);
+        }
     }
-});
+);
 
 // PUT /api/anuncios  --> Actualización de anuncio desde el request body (el ides enviado en la ruta).
 
-router.put("/:id", async function(req, res, next){
-    try {
-        const anuncioId = req.params.id
-        const anuncioDatos = req.body;
+router.put("/:id", 
+    [
+    body("precio").isNumeric().withMessage("El precio debe ser una cantidad numérica"),
+    body("venta").isBoolean().withMessage("Para la venta debe introducir un valor booleano: true si quiere vender / false si desea comprar")       
+    ],
+    async function(req, res, next){
+        try {
+            const anuncioId = req.params.id
+            const anuncioDatos = req.body;
 
-        const anuncioUpdated = await Anuncio.findByIdAndUpdate(anuncioId, anuncioDatos, {new: true});
+            const anuncioUpdated = await Anuncio.findByIdAndUpdate(anuncioId, anuncioDatos, {new: true});
 
-        res.render("index", {resultado: [anuncioUpdated]});
-        
-    } catch (error) {
-        next(error);
+            res.render("index", {resultado: [anuncioUpdated]});
+            
+        } catch (error) {
+            next(error);
+        }
     }
-});
+);
 
 // DELETE /api/anuncios/:id --> Borrado de anuncio desde la query string.
 
@@ -97,7 +114,7 @@ router.delete("/:id", async function(req, res, next){
         
         await Anuncio.deleteOne({_id: anuncioId});
 
-        res.render("index", {resultado: [{delete: true}]});
+        res.json("index", {resultado: [{delete: true}]});
         
     } catch (error) {
         next(error);
