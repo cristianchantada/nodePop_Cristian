@@ -3,11 +3,13 @@ const router = express.Router();
 const Anuncio = require("../../models/Anuncio");
 const {query, param, body, validationResult} = require("express-validator");
 
+var anuncios = null;
+
 // GET api/anuncios/ --> Devuelve una lista filtrada de anuncios según los parámetros introducidos en la query string.
 
     router.get("/", 
     [
-
+        body("precio").isNumeric().withMessage("El precio debe ser una cantidad numérica"),
     ], 
     async function (req, res, next){
         try {
@@ -41,7 +43,7 @@ const {query, param, body, validationResult} = require("express-validator");
             }
 
 
-            const anuncios = await Anuncio.filtrado(filtro, select, skip, limit, sort);
+            var anuncios = await Anuncio.filtrado(filtro, select, skip, limit, sort);
             res.render("index", {resultado: anuncios});
 
         } catch (error) {
@@ -54,8 +56,8 @@ const {query, param, body, validationResult} = require("express-validator");
 router.get("/:id", async function (req, res, next){
     try {
         const anuncioId = req.params.id;
-        const anuncioDevuelto = await Anuncio.findById(anuncioId);
-        res.render("index", {resultado: [anuncioDevuelto]});
+        var anuncios = await Anuncio.findById(anuncioId);
+        res.render("index", {resultado: [anuncios]});
 
     } catch (error) {
         next (error);
@@ -72,11 +74,11 @@ router.post("/", [
     async function(req, res, next){
         try {
             const anuncioDatos = req.body;
-            const anuncio = new Anuncio(anuncioDatos);
+            const anuncioDevuelto = new Anuncio(anuncioDatos);
 
-            const resultado = await anuncio.save();
+            var anuncios = await anuncioDevuelto.save();
 
-            res.render("index", {resultado: [resultado]});
+            res.render("index", {resultado: [anuncios]});
             
         } catch (error) {
             next(error);
@@ -96,9 +98,9 @@ router.put("/:id",
             const anuncioId = req.params.id
             const anuncioDatos = req.body;
 
-            const anuncioUpdated = await Anuncio.findByIdAndUpdate(anuncioId, anuncioDatos, {new: true});
+            var anuncios = await Anuncio.findByIdAndUpdate(anuncioId, anuncioDatos, {new: true});
 
-            res.render("index", {resultado: [anuncioUpdated]});
+            res.render("index", {resultado: [anuncios]});
             
         } catch (error) {
             next(error);
@@ -110,9 +112,9 @@ router.put("/:id",
 
 router.delete("/:id", async function(req, res, next){
     try {
-        const anuncioId = req.params.id;
+        var anuncios = req.params.id;
         
-        await Anuncio.deleteOne({_id: anuncioId});
+        await Anuncio.deleteOne({_id: anuncios});
 
         res.json("index", {resultado: [{delete: true}]});
         
@@ -121,4 +123,5 @@ router.delete("/:id", async function(req, res, next){
     }
 });
 
+module.exports = anuncios;
 module.exports = router;

@@ -1,3 +1,10 @@
 <h1><%= message %></h1>
 <h2><%= error.status %></h2>
+
+<% if(typeof message === "object") {%>
+    <% message.forEach(message =>{ %>
+        <h3><%= message %></h3>
+    <% }); %>
+<% } %>
+
 <pre><%= error.stack %></pre>
