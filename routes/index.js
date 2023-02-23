@@ -2,7 +2,13 @@ var express = require('express');
 var router = express.Router();
 const Anuncio = require("../models/Anuncio");
 
-// GET api/anuncios/ --> Devuelve una lista filtrada de anuncios según los parámetros introducidos en la query string.
+// GET "/tags" --> Devuelve la lista de los tags permitidos en Nodepop.
+
+router.get("/tags", (req, res, next) => {
+  res.send({tags_permitidos: ["lifestyle", "work", "mobile", "motor"]});
+});
+
+// GET "/" --> Devuelve una lista filtrada de anuncios según los parámetros introducidos en la query string.
 
 router.get("/", async function (req, res, next){
   try {
@@ -44,7 +50,7 @@ router.get("/", async function (req, res, next){
   }
 })
 
-// GET /api/anuncios/:id --> Devuelve un anuncio buscado desde la url por id.
+// GET "/:id" --> Devuelve un anuncio buscado desde la url por id.
 
 router.get("/:id", async function (req, res, next){
   try {
@@ -57,7 +63,7 @@ router.get("/:id", async function (req, res, next){
   }
 })
 
-// POST /api/anuncios --> Inserción de anuncio desde el request body.
+// POST "/" --> Inserción de anuncio desde el request body.
 
 router.post("/", async function(req, res, next){
   try {
@@ -73,7 +79,7 @@ router.post("/", async function(req, res, next){
   }
 });
 
-// PUT / --> Actualización de anuncio desde el request body (el ides enviado en la ruta).
+// PUT "/" --> Actualización de anuncio desde el request body (el ides enviado en la ruta).
 
 router.put("/:id", async function(req, res, next){
   try {
@@ -89,7 +95,7 @@ router.put("/:id", async function(req, res, next){
   }
 });
 
-// DELETE /:id --> Borrado de anuncio desde la query string.
+// DELETE "/:id" --> Borrado de anuncio desde la query string.
 
 router.delete("/:id", async function(req, res, next){
   try {

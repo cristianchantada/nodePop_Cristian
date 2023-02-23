@@ -43,7 +43,18 @@ Usted necesitará una base de datos MongoDB.
 
 La conexión se localiza en .lib/connectMongoose.js
 
-##### GET /api/anuncios
+##### GET /api/anuncios/tags --> Devuelve la lista de tags permitidos en Nodepop.
+
+{
+    "tags_permitidos": [
+        "lifestyle",
+        "work",
+        "mobile",
+        "motor"
+    ]
+}
+
+##### GET /api/anuncios OR GET "/api/anuncios/:id
 
 {
     "anuncios": [
@@ -60,3 +71,41 @@ La conexión se localiza en .lib/connectMongoose.js
         }
     ]
 }
+
+##### POST "/api/anuncios"
+
+Devuelve JSON con el anuncio insertado en la API.
+
+##### PUT "/api/anuncios"
+
+Devuelve JSON del anuncio actualizado.
+
+##### DELETE "/api/anuncios/:id"
+
+Confirma borrado de anuncio.
+
+#### WEB Methods:
+
+##### GET "/tags"
+
+Devuelve la lista de los tags permitidos en Nodepop.
+
+##### GET "/"
+
+Devuelve una lista filtrada de anuncios según los parámetros introducidos en la query string.
+
+##### GET "/:id"
+
+Devuelve un anuncio buscado desde la url por id.
+
+##### POST "/"
+
+Inserción de anuncio desde el request body.
+
+##### PUT "/"
+
+Actualización de anuncio desde el request body (el ides enviado en la ruta).
+
+##### DELETE "/:id"
+
+Borrado de anuncio desde la query string.
