@@ -36,12 +36,12 @@ app.use(function(req, res, next) {
 // error handler
 app.use(function(err, req, res, next) {
 
-  if(err.errors){
+/*   if(err.errors){
     err.errors.forEach(error => {
       err.message.push(`Error en ${errorInfo.location}, parámetro ${errorInfo.param}. Información: ${errorInfo.msg}`); 
       err.status = 422;
     });
-  }
+  } */
 
   // set locals, only providing error in development
   res.locals.message = err.message;

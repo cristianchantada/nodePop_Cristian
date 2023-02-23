@@ -1,17 +1,10 @@
 const express = require("express");
 const router = express.Router();
 const Anuncio = require("../../models/Anuncio");
-const {query, param, body, validationResult} = require("express-validator");
-
-var anuncios = null;
 
 // GET api/anuncios/ --> Devuelve una lista filtrada de anuncios según los parámetros introducidos en la query string.
 
-    router.get("/", 
-    [
-        body("precio").isNumeric().withMessage("El precio debe ser una cantidad numérica"),
-    ], 
-    async function (req, res, next){
+    router.get("/", async function (req, res, next){
         try {
 
             const filterByName = req.query.nombre;
@@ -42,9 +35,8 @@ var anuncios = null;
             filtro.tag = filterByTags;
             }
 
-
-            var anuncios = await Anuncio.filtrado(filtro, select, skip, limit, sort);
-            res.render("index", {resultado: anuncios});
+            const anuncios = await Anuncio.filtrado(filtro, select, skip, limit, sort);
+            res.json({resultado: anuncios});
 
         } catch (error) {
             next (error);
@@ -57,7 +49,7 @@ router.get("/:id", async function (req, res, next){
     try {
         const anuncioId = req.params.id;
         var anuncios = await Anuncio.findById(anuncioId);
-        res.render("index", {resultado: [anuncios]});
+        res.json({resultado: [anuncios]});
 
     } catch (error) {
         next (error);
@@ -66,62 +58,50 @@ router.get("/:id", async function (req, res, next){
 
 // POST /api/anuncios --> Inserción de anuncio desde el request body.
 
-router.post("/", [
-    body("precio").isNumeric().withMessage("El precio debe ser una cantidad numérica"),
-    body("venta").isBoolean().withMessage("Para la venta debe introducir un valor booleano: true si quiere vender / false si desea comprar") 
-]
-,
-    async function(req, res, next){
-        try {
-            const anuncioDatos = req.body;
-            const anuncioDevuelto = new Anuncio(anuncioDatos);
-
-            var anuncios = await anuncioDevuelto.save();
-
-            res.render("index", {resultado: [anuncios]});
-            
-        } catch (error) {
-            next(error);
-        }
-    }
-);
-
-// PUT /api/anuncios  --> Actualización de anuncio desde el request body (el ides enviado en la ruta).
-
-router.put("/:id", 
-    [
-    body("precio").isNumeric().withMessage("El precio debe ser una cantidad numérica"),
-    body("venta").isBoolean().withMessage("Para la venta debe introducir un valor booleano: true si quiere vender / false si desea comprar")       
-    ],
-    async function(req, res, next){
-        try {
-            const anuncioId = req.params.id
-            const anuncioDatos = req.body;
-
-            var anuncios = await Anuncio.findByIdAndUpdate(anuncioId, anuncioDatos, {new: true});
-
-            res.render("index", {resultado: [anuncios]});
-            
-        } catch (error) {
-            next(error);
-        }
-    }
-);
-
-// DELETE /api/anuncios/:id --> Borrado de anuncio desde la query string.
-
-router.delete("/:id", async function(req, res, next){
+router.post("/", async function(req, res, next){
     try {
-        var anuncios = req.params.id;
-        
-        await Anuncio.deleteOne({_id: anuncios});
+        const anuncioDatos = req.body;
+        const anuncioDevuelto = new Anuncio(anuncioDatos);
 
-        res.json("index", {resultado: [{delete: true}]});
+        var anuncios = await anuncioDevuelto.save();
+
+        res.json({resultado: [anuncios]});
         
     } catch (error) {
         next(error);
     }
 });
 
-module.exports = anuncios;
+// PUT /api/anuncios  --> Actualización de anuncio desde el request body (el ides enviado en la ruta).
+
+router.put("/:id", async function(req, res, next){
+    try {
+        const anuncioId = req.params.id
+        const anuncioDatos = req.body;
+
+        var anuncios = await Anuncio.findByIdAndUpdate(anuncioId, anuncioDatos, {new: true});
+
+        res.json({resultado: [anuncios]});
+        
+    } catch (error) {
+        next(error);
+    }
+});
+
+// DELETE /api/anuncios/:id --> Borrado de anuncio desde la query string.
+
+router.delete("/:id", async function(req, res, next){
+    try {
+        const anuncios = req.params.id;
+        
+        await Anuncio.deleteOne({_id: anuncios});
+
+        res.json({resultado: [{delete: true}]});
+        
+    } catch (error) {
+        next(error);
+    }
+});
+
 module.exports = router;
+
