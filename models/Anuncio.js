@@ -1,3 +1,4 @@
+const { selectFields } = require("express-validator/src/select-fields");
 const mongoose = require("mongoose");
 
 const anuncioSchema = mongoose.Schema({

@@ -13,33 +13,44 @@ router.get("/tags", (req, res, next) => {
 router.get("/", async function (req, res, next){
   try {
 
-      const filterByName = req.query.nombre;
-      const filterBySale = req.query.venta;
-      const filterByPrice = req.query.precio;
-      const filterByTags = req.query.tag;
+/*  const filterByName = new RegExp('^' + req.query.nombre, "i"); */
 
-      const select = req.query.select;
-      const skip = req.query.skip;
-      const limit = req.query.limit;
-      const sort = req.query.sort;
+    const filterByName = req.query.nombre;
+    const filterBySale = req.query.venta;
+    const filterByPrice = req.query.precio;
+    const filterByTags = req.query.tags;
 
-      const filtro = {};
+    const select = req.query.select;
+    const skip = req.query.skip;
+    const limit = req.query.limit;
+    const sort = req.query.sort;
 
-      if (filterByName) {
-          filtro.nombre = filterByName;
+    const filtro = {};
+
+    if (filterByName) {
+        filtro.nombre = filterByName;
+      }
+    
+    if (filterBySale) {
+    filtro.venta = filterBySale;
+    }
+
+    if (filterByPrice) {
+    filtro.precio = filterByPrice;
+    }
+
+    if (filterByTags) {
+
+/*       // Filtrado de tags para que solo sean válidos: lifestyle, work, mobile y motor.
+      filterByTags.forEach(item =>{
+        const tagsPermitidos = ["lifestyle", "work", "mobile", "motor"];
+        if(tagsPermitidos.includes(item) === false){
+          next(`El tag no está permitido en Nodepop`);
         }
-      
-      if (filterBySale) {
-      filtro.venta = filterBySale;
-      }
+      }) */
 
-      if (filterByPrice) {
-      filtro.precio = filterByPrice;
-      }
-
-      if (filterByTags) {
-      filtro.tag = filterByTags;
-      }
+      filtro.tags = filterByTags;
+    }
 
 
       const anuncios = await Anuncio.filtrado(filtro, select, skip, limit, sort);

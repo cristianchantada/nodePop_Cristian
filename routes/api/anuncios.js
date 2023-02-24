@@ -10,44 +10,44 @@ router.get("/tags", (req, res, next) => {
 
 // GET "/api/anuncios/" --> Devuelve una lista filtrada de anuncios según los parámetros introducidos en la query string.
 
-    router.get("/", async function (req, res, next){
-        try {
+router.get("/", async function (req, res, next){
+    try {
 
-            const filterByName = req.query.nombre;
-            const filterBySale = req.query.venta;
-            const filterByPrice = req.query.precio;
-            const filterByTags = req.query.tag;
+        const filterByName = req.query.nombre;
+        const filterBySale = req.query.venta;
+        const filterByPrice = req.query.precio;
+        const filterByTags = req.query.tags;
 
-            const select = req.query.select;
-            const skip = req.query.skip;
-            const limit = req.query.limit;
-            const sort = req.query.sort;
+        const select = req.query.select;
+        const skip = req.query.skip;
+        const limit = req.query.limit;
+        const sort = req.query.sort;
 
-            const filtro = {};
+        const filtro = {};
 
-            if (filterByName) {
-                filtro.nombre = filterByName;
-              }
-            
-            if (filterBySale) {
-            filtro.venta = filterBySale;
+        if (filterByName) {
+            filtro.nombre = filterByName;
             }
-
-            if (filterByPrice) {
-            filtro.precio = filterByPrice;
-            }
-
-            if (filterByTags) {
-            filtro.tag = filterByTags;
-            }
-
-            const anuncios = await Anuncio.filtrado(filtro, select, skip, limit, sort);
-            res.json({resultado: anuncios});
-
-        } catch (error) {
-            next (error);
+        
+        if (filterBySale) {
+        filtro.venta = filterBySale;
         }
-    })
+
+        if (filterByPrice) {
+        filtro.precio = filterByPrice;
+        }
+
+        if (filterByTags) {
+        filtro.tags = filterByTags;
+        }
+
+        const anuncios = await Anuncio.filtrado(filtro, select, skip, limit, sort);
+        res.json({resultado: anuncios});
+
+    } catch (error) {
+        next (error);
+    }
+})
 
 // GET "/api/anuncios/:id" --> Devuelve un anuncio buscado desde la url por id.
 
