@@ -91,7 +91,7 @@ router.post("/", async function(req, res, next){
     }
 });
 
-// PUT "/api/anuncios"  --> Actualización de anuncio desde el request body (el ides enviado en la ruta).
+// PUT "/api/anuncios/:id"  --> Actualización de anuncio desde el request body (el ides enviado en la ruta).
 
 router.put("/:id", async function(req, res, next){
     try {
