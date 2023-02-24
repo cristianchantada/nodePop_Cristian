@@ -12,7 +12,6 @@ router.get("/tags", (req, res, next) => {
 
 router.get("/", async function (req, res, next){
     try {
-
         const filterByName = req.query.nombre;
         const filterBySale = req.query.venta;
         const filterByPrice = req.query.precio;
@@ -26,8 +25,8 @@ router.get("/", async function (req, res, next){
         const filtro = {};
 
         if (filterByName) {
-            filtro.nombre = filterByName;
-            }
+            filtro.nombre = new RegExp('^' + req.query.nombre, "i");
+        }
         
         if (filterBySale) {
         filtro.venta = filterBySale;
