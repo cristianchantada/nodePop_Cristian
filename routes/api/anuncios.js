@@ -38,6 +38,20 @@ router.get("/", async function (req, res, next){
         }
 
         if (filterByTags) {
+
+      // Filtrado de tags para que solo sean válidos: lifestyle, work, mobile y motor.
+
+        if(typeof filterByTags !== "object"){
+            filterByTags = [filterByTags]
+        }
+
+        filterByTags.forEach(item =>{
+            const tagsPermitidos = ["lifestyle", "work", "mobile", "motor"];
+            if(tagsPermitidos.includes(item) === false){
+            res.send("Ha introducido alguna tag no válida en NodeApp; Solo se admiten 'lifestyle', 'motor', 'work' y 'mobile'")
+            }
+        });
+
         filtro.tags = filterByTags;
         }
 
