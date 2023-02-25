@@ -1,4 +1,6 @@
 const express = require("express");
+const getFilterFunction = require("../../models/modelQueries");
+const getFunction = require("../../models/modelQueries");
 const router = express.Router();
 const Anuncio = require("../../models/Anuncio");
 
@@ -10,69 +12,14 @@ router.get("/tags", (req, res, next) => {
 
 // GET "/api/anuncios/" --> Devuelve una lista filtrada de anuncios según los parámetros introducidos en la query string.
 
-router.get("/", async function (req, res, next){
-    try {
-        const filterByName = req.query.nombre;
-        const filterBySale = req.query.venta;
-        const filterByPrice = req.query.precio;
-        const filterByTags = req.query.tags;
-
-        const select = req.query.select;
-        const skip = req.query.skip;
-        const limit = req.query.limit;
-        const sort = req.query.sort;
-
-        const filtro = {};
-
-        if (filterByName) {
-            filtro.nombre = new RegExp('^' + req.query.nombre, "i");
-        }
-        
-        if (filterBySale) {
-        filtro.venta = filterBySale;
-        }
-
-        if (filterByPrice) {
-        filtro.precio = filterByPrice;
-        }
-
-        if (filterByTags) {
-
-      // Filtrado de tags para que solo sean válidos: lifestyle, work, mobile y motor.
-
-        if(typeof filterByTags !== "object"){
-            filterByTags = [filterByTags]
-        }
-
-        filterByTags.forEach(item =>{
-            const tagsPermitidos = ["lifestyle", "work", "mobile", "motor"];
-            if(tagsPermitidos.includes(item) === false){
-            res.send("Ha introducido alguna tag no válida en NodeApp; Solo se admiten 'lifestyle', 'motor', 'work' y 'mobile'")
-            }
-        });
-
-        filtro.tags = filterByTags;
-        }
-
-        const anuncios = await Anuncio.filtrado(filtro, select, skip, limit, sort);
-        res.json({resultado: anuncios});
-
-    } catch (error) {
-        next (error);
-    }
-})
+router.get("/", function (req, res, next){
+    getFilterFunction(req, res, next);
+});
 
 // GET "/api/anuncios/:id" --> Devuelve un anuncio buscado desde la url por id.
 
 router.get("/:id", async function (req, res, next){
-    try {
-        const anuncioId = req.params.id;
-        var anuncios = await Anuncio.findById(anuncioId);
-        res.json({resultado: [anuncios]});
-
-    } catch (error) {
-        next (error);
-    }
+    getFunction(req, res, next);
 })
 
 // POST "/api/anuncios" --> Inserción de anuncio desde el request body.

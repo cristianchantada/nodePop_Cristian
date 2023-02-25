@@ -1,4 +1,3 @@
-const { selectFields } = require("express-validator/src/select-fields");
 const mongoose = require("mongoose");
 
 const anuncioSchema = mongoose.Schema({
@@ -9,13 +8,13 @@ const anuncioSchema = mongoose.Schema({
     tags: [String],
 });
 
-anuncioSchema.statics.filtrado = function (filtro, select, skip, limit, sort){
+anuncioSchema.statics.filtrado = function (queryData, filtro){
 
     const query = Anuncio.find(filtro);
-    query.select(select);
-    query.skip(skip);
-    query.limit(limit);
-    query.sort(sort);
+    query.select(queryData.select);
+    query.skip(queryData.skip);
+    query.limit(queryData.limit);
+    query.sort(queryData.sort);
     return query.exec();
 
 }

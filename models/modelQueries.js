@@ -1,30 +1,67 @@
-schemaAnuncio.statics.lista = async function(filtro, skip, limit, sort, fields) {
+const Anuncio = require("./Anuncio");
+const express = require("express");
 
-    if(Object.keys(filtro).toString() === 'nombre'){
-      const aaa = await Anuncio.find()
+function filtrado (queryData){
+    let filterByName = queryData.nombre;
+    let filterBySale = queryData.venta;
+    let filterByPrice = queryData.precio;
+    let filterByTags = queryData.tags;
 
-      const filt = []
-      const bbb = aaa.forEach(a => {
-        if(a.nombre.startsWith(filtro.nombre)){
-        filt.push(a.nombre)
+    const filtro = {};
 
-        return filt
-      }
-      })
-      const query = Anuncio.find({ nombre : filt }); 
-      query.skip(skip);
-      query.limit(limit);
-      query.sort(sort);
-      query.select(fields);
-      return query.exec();
-
+    if (filterByName) {
+        filtro.nombre = new RegExp('^' + queryData.nombre, "i");
     }
-    else {
-      const query = Anuncio.find(filtro); 
-      query.skip(skip);
-      query.limit(limit);
-      query.sort(sort);
-      query.select(fields);
-      return query.exec();
+    
+    if (filterBySale) {
+    filtro.venta = filterBySale;
     }
-  }
+
+    if (filterByPrice) {
+    filtro.precio = filterByPrice;
+    }
+
+    if (filterByTags) {
+
+    // Filtrado de tags para que solo sean válidos: lifestyle, work, mobile y motor.
+
+    if(typeof filterByTags !== "object"){
+        filterByTags = [filterByTags];
+    }
+
+    filterByTags.forEach(item =>{
+        const tagsPermitidos = ["lifestyle", "work", "mobile", "motor"];
+        if(tagsPermitidos.includes(item) === false){
+        res.send("Ha introducido alguna tag no válida en NodeApp; Solo se admiten 'lifestyle', 'motor', 'work' y 'mobile'");
+        }
+    });
+
+    filtro.tags = filterByTags;
+    }
+
+    return filtro;
+
+}
+
+async function getFilterFunction (req, res, next){
+
+    let queryData = req.query;
+    const filtro = filtrado(queryData);
+
+    try {
+        const anuncios = await Anuncio.filtrado(queryData, filtro);
+        console.log(req.originalUrl);
+        if(req.originalUrl[1] !== "a"){
+            res.render("index", {resultado: anuncios});
+        } else {
+            res.json({resultado: anuncios});
+        }
+        
+    } catch (error) {
+        next (error);
+    }
+}
+
+
+
+module.exports = getFilterFunction;
