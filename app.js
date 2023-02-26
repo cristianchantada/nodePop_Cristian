@@ -6,7 +6,7 @@ var path = require('path');
 
 var indexRouter = require('./routes/index');
 const apiRouter = require("./routes/api/anuncios");
-require("./lib/connectMongoose")
+require("./lib/connectMongoose");
 
 var app = express();
 
@@ -20,7 +20,7 @@ app.use(express.urlencoded({ extended: false }));
 app.use(cookieParser());
 app.use(express.static(path.join(__dirname, 'public')));
 
-app.locals.title = "Nodepop"
+app.locals.title = "Nodepop";
 
 /**
  * Rutas del sitio web.
@@ -41,13 +41,14 @@ app.use(function(req, res, next) {
 
 // error handler
 app.use(function(err, req, res, next) {
-
-  // comprobación de errores de validación.
   
-  if (err.array) {
-    const errorInfo = err.errors[0];
-    err.message = `Error en ${errorInfo.location}, parámetro ${errorInfo.param} ${errorInfo.msg}`;
-    err.status = 422;
+  res.status(err.status || 500);
+
+  // Retorno de JSON en caso de que el error provenga de la API.
+
+  if (req.originalUrl.startsWith('/api/')) {
+    res.json({ error: err.message });
+    return;
   }
 
   // set locals, only providing error in development
@@ -55,7 +56,6 @@ app.use(function(err, req, res, next) {
   res.locals.error = req.app.get('env') === 'development' ? err : {};
 
   // render the error page
-  res.status(err.status || 500);
   res.render('error');
 });
 

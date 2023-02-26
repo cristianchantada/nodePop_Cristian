@@ -1,4 +1,4 @@
-# Nodepop aplication de Cristian Varela Casas.
+# Aplicación Nodepop de Cristian Varela Casas.
 ## Práctica del módulo Fundamentos backend del Bootcamp web 14 de Keepcoding.
 
 ### NodeApp
@@ -54,7 +54,7 @@ La conexión se localiza en .lib/connectMongoose.js
     ]
 }
 
-##### GET /api/anuncios OR GET "/api/anuncios/:id
+##### GET /api/anuncios   o    GET "/api/anuncios/:id  --> Devuelve todos / o el anuncio filtrado por su iD.
 
 {
     "anuncios": [
@@ -83,6 +83,8 @@ Devuelve JSON del anuncio actualizado.
 ##### DELETE "/api/anuncios/:id"
 
 Confirma borrado de anuncio.
+
+---------------------------------------------------------------------
 
 #### WEB Methods:
 
