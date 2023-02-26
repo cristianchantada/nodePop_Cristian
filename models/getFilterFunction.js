@@ -1,5 +1,4 @@
 const Anuncio = require("./Anuncio");
-const express = require("express");
 
 function filtrado (queryData){
     let filterByName = queryData.nombre;
@@ -61,8 +60,5 @@ async function getFilterFunction (req, res, next){
         next (error);
     }
 }
-
-
-
 
 module.exports = getFilterFunction;

@@ -1,11 +1,10 @@
+var cookieParser = require('cookie-parser');
 var createError = require('http-errors');
 var express = require('express');
-var path = require('path');
-var cookieParser = require('cookie-parser');
 var logger = require('morgan');
+var path = require('path');
 
 var indexRouter = require('./routes/index');
-var usersRouter = require('./routes/users');
 const apiRouter = require("./routes/api/anuncios");
 require("./lib/connectMongoose")
 
@@ -23,10 +22,17 @@ app.use(express.static(path.join(__dirname, 'public')));
 
 app.locals.title = "Nodepop"
 
-app.use('/', indexRouter);
-app.use("/api/anuncios", apiRouter);
+/**
+ * Rutas del sitio web.
+ */
 
-//app.use('/users', usersRouter);
+app.use('/', indexRouter);
+
+/**
+ * Rutas de la API.
+ */
+
+app.use("/api/anuncios", apiRouter);
 
 // catch 404 and forward to error handler
 app.use(function(req, res, next) {
@@ -36,12 +42,13 @@ app.use(function(req, res, next) {
 // error handler
 app.use(function(err, req, res, next) {
 
-/*   if(err.errors){
-    err.errors.forEach(error => {
-      err.message.push(`Error en ${errorInfo.location}, parámetro ${errorInfo.param}. Información: ${errorInfo.msg}`); 
-      err.status = 422;
-    });
-  } */
+  // comprobación de errores de validación.
+  
+  if (err.array) {
+    const errorInfo = err.errors[0];
+    err.message = `Error en ${errorInfo.location}, parámetro ${errorInfo.param} ${errorInfo.msg}`;
+    err.status = 422;
+  }
 
   // set locals, only providing error in development
   res.locals.message = err.message;

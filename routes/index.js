@@ -1,11 +1,10 @@
-var express = require('express');
 const getFilterFunction = require("../models/getFilterFunction");
 const getIdFunction = require("../models/getIdFunction");
 const postFunction = require("../models/postFunction");
 const putFunction = require("../models/putFunction");
 const deleteFunction = require("../models/deleteFunction");
+var express = require('express');
 var router = express.Router();
-const Anuncio = require("../models/Anuncio");
 
 // GET "/tags" --> Devuelve la lista de los tags permitidos en Nodepop.
 

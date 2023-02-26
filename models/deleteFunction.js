@@ -1,6 +1,4 @@
 const Anuncio = require("./Anuncio");
-const express = require("express");
-
 
 async function deleteFunction (req, res, next){
 try {
@@ -21,4 +19,4 @@ try {
 
 }
 
-module.exports = deleteFunction
+module.exports = deleteFunction;

@@ -1,6 +1,4 @@
 const Anuncio = require("./Anuncio");
-const express = require("express");
-
 
 async function getIdFunction(req, res, next){
     try {
