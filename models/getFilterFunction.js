@@ -50,7 +50,7 @@ async function getFilterFunction (req, res, next){
 
     try {
         const anuncios = await Anuncio.filtrado(queryData, filtro);
-        console.log(req.originalUrl);
+        
         if(req.originalUrl[1] !== "a"){
             res.render("index", {resultado: anuncios});
         } else {
@@ -61,6 +61,7 @@ async function getFilterFunction (req, res, next){
         next (error);
     }
 }
+
 
 
 

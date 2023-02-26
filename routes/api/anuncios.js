@@ -1,6 +1,9 @@
 const express = require("express");
-const getFilterFunction = require("../../models/modelQueries");
-const getFunction = require("../../models/modelQueries");
+const getFilterFunction = require("../../models/getFilterFunction");
+const getIdFunction = require("../../models/getIdFunction");
+const postFunction = require("../../models/postFunction");
+const putFunction = require("../../models/putFunction");
+const deleteFunction = require("../../models/deleteFunction");
 const router = express.Router();
 const Anuncio = require("../../models/Anuncio");
 
@@ -19,54 +22,25 @@ router.get("/", function (req, res, next){
 // GET "/api/anuncios/:id" --> Devuelve un anuncio buscado desde la url por id.
 
 router.get("/:id", async function (req, res, next){
-    getFunction(req, res, next);
+    getIdFunction(req, res, next);
 })
 
 // POST "/api/anuncios" --> Inserción de anuncio desde el request body.
 
 router.post("/", async function(req, res, next){
-    try {
-        const anuncioDatos = req.body;
-        const anuncioDevuelto = new Anuncio(anuncioDatos);
-
-        var anuncios = await anuncioDevuelto.save();
-
-        res.json({resultado: [anuncios]});
-        
-    } catch (error) {
-        next(error);
-    }
+    postFunction(req, res, next);
 });
 
 // PUT "/api/anuncios/:id"  --> Actualización de anuncio desde el request body (el ides enviado en la ruta).
 
 router.put("/:id", async function(req, res, next){
-    try {
-        const anuncioId = req.params.id
-        const anuncioDatos = req.body;
-
-        var anuncios = await Anuncio.findByIdAndUpdate(anuncioId, anuncioDatos, {new: true});
-
-        res.json({resultado: [anuncios]});
-        
-    } catch (error) {
-        next(error);
-    }
+    putFunction(req, res, next);
 });
 
 // DELETE "/api/anuncios/:id" --> Borrado de anuncio desde la query string.
 
 router.delete("/:id", async function(req, res, next){
-    try {
-        const anuncios = req.params.id;
-        
-        await Anuncio.deleteOne({_id: anuncios});
-
-        res.json({resultado: [{delete: true}]});
-        
-    } catch (error) {
-        next(error);
-    }
+    deleteFunction(req, res, next);
 });
 
 module.exports = router;
