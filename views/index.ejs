@@ -5,9 +5,14 @@
     <link rel='stylesheet' href='/stylesheets/style.css' />
   </head>
   <body>
-    <h1><%= title %></h1>
-    <p>Welcome to <%= title %></p>
-	<br>
+    <header>
+        <h1><%= title %></h1>
+        <p>Welcome to <%= title %></p>
+        <br>
+        <nav>
+            <a href="/login">Login</a>
+        </nav>
+    </header>
 <% if (resultado === {delete: true}) {%>
 	<p>Anuncio borrado correctamente</p>
 <% } else { %>
@@ -36,5 +41,8 @@
 		</tbody>
 	</table>
 <% } %>
+	<footer>
+		<p>Cristi Copyright 2023</p>
+	</footer>
   </body>
 </html>

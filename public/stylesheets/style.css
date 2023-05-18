@@ -1,4 +1,105 @@
+* {
+  box-sizing: border-box;
+}
+
 body {
+  font-family: Arial, sans-serif;
+  background-color: #f7f7f7;
+  margin: 0;
+  padding: 0;
+}
+
+header {
+  background-color: #333;
+  color: #fff;
+  padding: 20px;
+  text-align: center;
+}
+
+h1 {
+  margin: 0;
+  font-size: 36px;
+  font-weight: bold;
+  color: #fff;
+}
+
+p {
+  margin: 10px 0;
+  color: #666;
+}
+
+nav {
+  margin-top: 20px;
+}
+
+nav a {
+  color: #333;
+  text-decoration: none;
+  font-weight: bold;
+  margin-right: 10px;
+  padding: 5px 10px;
+  border-radius: 4px;
+  background-color: #fff;
+  transition: background-color 0.3s ease;
+}
+
+table.styled-table {
+  width: 80%;
+  margin: 20px auto;
+  border-collapse: collapse;
+}
+
+table.styled-table th {
+  background-color: #333;
+  color: #fff;
+  padding: 12px;
+  text-align: left;
+}
+
+table.styled-table td {
+  padding: 12px;
+  border-bottom: 1px solid #ccc;
+}
+
+table.styled-table td:first-child {
+  text-align: center;
+}
+
+table.styled-table tbody tr:nth-child(even) {
+  background-color: #f9f9f9;
+}
+
+table.styled-table tbody tr:nth-child(odd) {
+  background-color: #f2f2f2;
+}
+
+footer {
+  background-color: #333;
+  color: #fff;
+  padding: 10px;
+  text-align: center;
+  font-size: 14px;
+}
+
+footer p {
+  margin: 0;
+}
+
+table.styled-table img {
+  max-width: 150px;
+  max-height: 150px;
+  border-radius: 8px;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+}
+
+
+
+
+
+
+
+
+/* body {
   padding: 50px;
   font: 20px "Lucida Grande", Helvetica, Arial, sans-serif;
 }
@@ -45,4 +146,4 @@ a {
 
 thead td {
   text-align: center;
-}
+} */
