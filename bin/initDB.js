@@ -4,6 +4,7 @@ const Anuncio = require("../models/Anuncio");
 const User = require("../models/Users");
 const connection = require("../lib/connectMongoose");
 const anunciosJson = require("./anuncios.json");
+const bcrypt = require('bcrypt');
 
 async function initAnuncios(){
     const deleted = await Anuncio.deleteMany();
@@ -22,6 +23,10 @@ async function initUsers() {
     const deleted = await User.deleteMany();
     console.log(`Se han borrado un total de ${deleted.deletedCount} USUARIOS`);
     const insert = anunciosJson.users;
+
+    for(let i = 0; i< insert.length; i++){
+        insert[i].password = await bcrypt.hash(insert[i].password, 5);
+    }
     
     await User.insertMany(insert);
     

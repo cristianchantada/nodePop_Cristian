@@ -1,5 +1,5 @@
 const LoginController = require('./controllers/LoginController');
-const jwtAuthMiddelware = require('./lib/jwtAuthMiddelware');
+const jwtAuthMiddleware = require('./lib/jwtAuthMiddleware');
 var cookieParser = require('cookie-parser');
 var createError = require('http-errors');
 var express = require('express');
@@ -38,7 +38,8 @@ app.use('/', indexRouter);
  * Rutas de la API.
 */
 
-app.use("/api/anuncios", jwtAuthMiddelware, apiRouter);
+app.post("/api/authenticate", loginController.Authenticate);
+app.use("/api/anuncios", jwtAuthMiddleware, apiRouter);
 
 // catch 404 and forward to error handler
 app.use(function(req, res, next) {

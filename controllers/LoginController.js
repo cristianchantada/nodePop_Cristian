@@ -1,5 +1,6 @@
 const User = require("../models/Users");
 const jsonWT = require('jsonwebtoken');
+const bcrypt = require('bcrypt');
 
 
 class LoginController {
@@ -13,22 +14,18 @@ class LoginController {
             const {email, password} = req.body;
     
             const userData = await User.findOne({email: email});
-            console.log(userData)
 
-            if(!userData || password !== userData.password){
+            if(!userData || !(await bcrypt.compare(password, userData.password))){
                 res.locals.error = 'El usuario no existe';
                 res.redirect('/login');
                 return;
             }
 
-            console.log(process.env.JWT_POWER_SECRET);
-
             const signedToken = jsonWT.sign({userId: userData.email}, process.env.JWT_POWER_SECRET, {
-               expiresIn: '4d' 
+               expiresIn: '2' 
             });
 
             res.json({token: signedToken});
-           
 
         } catch(err) {
             next(err);
