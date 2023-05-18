@@ -28,7 +28,7 @@ app.locals.title = "Nodepop";
  * Rutas del sitio web.
  */
 
-// app.use('/login', LoginController.post);
+// app.use('/login/authenticate', LoginController.post);
 app.use('/', indexRouter);
 
 /**

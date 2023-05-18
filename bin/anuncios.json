@@ -7,5 +7,8 @@
         {"nombre": "Fragoneta nueba", "venta": true, "precio": 9500, "foto": "fragoneta.jpg", "tags": ["motor", "work"]},
         {"nombre": "Amigos", "venta": false, "precio": 10, "foto": "amigos.jpg", "tags": ["lifestyle"]},
         {"nombre": "Reloges y mobiles y jollas rovadas", "venta": true, "precio": 150, "foto": "relojes.jpg", "tags": ["lifestyle", "mobile"]}
+    ],
+    "users": [
+        {"email": "user@example.com", "password": "1234"}
     ]
 }
