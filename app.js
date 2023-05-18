@@ -1,9 +1,10 @@
+const LoginController = require('./controllers/LoginController');
+const jwtAuthMiddelware = require('./lib/jwtAuthMiddelware');
 var cookieParser = require('cookie-parser');
 var createError = require('http-errors');
 var express = require('express');
 var logger = require('morgan');
 var path = require('path');
-const LoginController = require('./controllers/LoginController')
 
 
 var indexRouter = require('./routes/index');
@@ -23,19 +24,21 @@ app.use(cookieParser());
 app.use(express.static(path.join(__dirname, 'public')));
 
 app.locals.title = "Nodepop";
+const loginController = new LoginController();
 
 /**
  * Rutas del sitio web.
  */
 
-// app.use('/login/authenticate', LoginController.post);
+app.get('/login', loginController.index);
+app.post('/login', loginController.Authenticate);
 app.use('/', indexRouter);
 
 /**
  * Rutas de la API.
- */
+*/
 
-app.use("/api/anuncios", apiRouter);
+app.use("/api/anuncios", jwtAuthMiddelware, apiRouter);
 
 // catch 404 and forward to error handler
 app.use(function(req, res, next) {

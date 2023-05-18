@@ -1,9 +1,39 @@
+const User = require("../models/Users");
+const jsonWT = require('jsonwebtoken');
 
 
-module.export = class LoginController {
+class LoginController {
 
-    post(req, res, next){
-        
+    index(req, res, next){
+        res.render("login");
     }
 
+    async Authenticate(req, res, next){
+        try {
+            const {email, password} = req.body;
+    
+            const userData = await User.findOne({email: email});
+            console.log(userData)
+
+            if(!userData || password !== userData.password){
+                res.locals.error = 'El usuario no existe';
+                res.redirect('/login');
+                return;
+            }
+
+            console.log(process.env.JWT_POWER_SECRET);
+
+            const signedToken = jsonWT.sign({userId: userData.email}, process.env.JWT_POWER_SECRET, {
+               expiresIn: '4d' 
+            });
+
+            res.json({token: signedToken});
+           
+
+        } catch(err) {
+            next(err);
+        }
+    }
 }
+
+module.exports = LoginController;

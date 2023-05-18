@@ -1,9 +1,9 @@
 "use strict";
 
 const Anuncio = require("../models/Anuncio");
-const User = require("../models/Users")
+const User = require("../models/Users");
 const connection = require("../lib/connectMongoose");
-const anunciosJson = require("./anuncios.json")
+const anunciosJson = require("./anuncios.json");
 
 async function initAnuncios(){
     const deleted = await Anuncio.deleteMany();
