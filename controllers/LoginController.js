@@ -22,7 +22,7 @@ class LoginController {
             }
 
             const signedToken = jsonWT.sign({userId: userData.email}, process.env.JWT_POWER_SECRET, {
-               expiresIn: '2' 
+               expiresIn: '4d' 
             });
 
             res.json({token: signedToken});

@@ -5,6 +5,7 @@ var createError = require('http-errors');
 var express = require('express');
 var logger = require('morgan');
 var path = require('path');
+const i18n = require('./lib/i18nConfig');
 
 
 var indexRouter = require('./routes/index');
@@ -17,10 +18,11 @@ var app = express();
 app.set('views', path.join(__dirname, 'views'));
 app.set('view engine', 'ejs');
 
+app.use(cookieParser());
+app.use(i18n.init);
 app.use(logger('dev'));
 app.use(express.json());
 app.use(express.urlencoded({ extended: false }));
-app.use(cookieParser());
 app.use(express.static(path.join(__dirname, 'public')));
 
 app.locals.title = "Nodepop";
@@ -32,6 +34,7 @@ const loginController = new LoginController();
 
 app.get('/login', loginController.index);
 app.post('/login', loginController.Authenticate);
+app.use('/change-locale', require('./routes/change-locale'))
 app.use('/', indexRouter);
 
 /**
