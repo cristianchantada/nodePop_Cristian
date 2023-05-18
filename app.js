@@ -3,6 +3,7 @@ var createError = require('http-errors');
 var express = require('express');
 var logger = require('morgan');
 var path = require('path');
+const LoginController = require('./controllers/LoginController')
 
 
 var indexRouter = require('./routes/index');
@@ -27,6 +28,7 @@ app.locals.title = "Nodepop";
  * Rutas del sitio web.
  */
 
+// app.use('/login', LoginController.post);
 app.use('/', indexRouter);
 
 /**
