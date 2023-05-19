@@ -6,7 +6,10 @@ router.get('/:locale', (req, res, next) => {
   
   res.cookie('locale', locale, {
     maxAge: 1000 * 60 * 60 * 24 *4
-  })
+  });
+
+  res.redirect(req.get('referer'));
+
 })
 
 module.exports = router;

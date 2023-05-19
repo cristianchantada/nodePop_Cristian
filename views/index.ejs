@@ -7,12 +7,13 @@
   <body>
     <header>
         <h1><%= title %></h1>
-        <p>Welcome to <%= title %></p>
+        <p><%= __('Bienvenido a')  %> <%= title %></p>
         <br>
         <nav>
             <a href="/login">Login</a>
-            <a href="/change-locale<%= locale %>">Español</a>
-            <a href="/change-locale<%= locale %>">Inglés</a>
+			<% getLocales().forEach(locale =>{ %>
+				<a href='/change-locale/<%= locale %>'><%= locale %></a>
+			<% }) %>
         </nav>
     </header>
 <% if (resultado === {delete: true}) {%>
@@ -20,19 +21,19 @@
 <% } else { %>
 	<table class="styled-table">
 		<thead>
-			<td><b>Venta / compra</b></td>
-			<td style="text-align: left;"><b>Nombre</b></td>
-			<td><b>Precio</b</td>
-			<td><b>Tags</b</td>
-			<td><b>Foto</b</td>
+			<td><b><%= __('Venta / Compra') %></b></td>
+			<td style="text-align: left;"><b><%= __('Nombre') %></b></td>
+			<td><b><%= __('Precio') %></b</td>
+			<td><b><%= __('Etiquetas') %></b</td>
+			<td><b><%= __('Foto') %></b</td>
 		</thead>
 		<tbody>
 	<% resultado.forEach(anuncio => { %>
 			<tr style="text-align: center">
 	<% if(anuncio.venta === true) { %>
-				<td>Vendo</td>
+				<td><%= __('Vendo') %></td>
 	<% } else { %>
-				<td>Compro</td>
+				<td><%= __('Compro') %></td>
 	<% } %>
 				<td style="text-align: left"><%= anuncio.nombre %></td>
 				<td><%= anuncio.precio %> €</td>
@@ -44,7 +45,7 @@
 	</table>
 <% } %>
 	<footer>
-		<p>Cristi Copyright 2023</p>
+		<p>Cristian Copyright 2023</p>
 	</footer>
   </body>
 </html>

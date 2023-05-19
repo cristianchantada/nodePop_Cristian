@@ -1,1 +1,10 @@
-{}
+{
+	"Bienvenido a": "Welcome to",
+	"Nombre": "Name",
+	"Precio": "Price",
+	"Etiquetas": "Tags",
+	"Foto": "Photo",
+	"Compro": "Buy",
+	"Vendo": "Sell",
+	"Venta / Compra": "Sell / Buy"
+}
