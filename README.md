@@ -1,12 +1,22 @@
 # Aplicación Nodepop de Cristian Varela Casas.
 ## Práctica del módulo Fundamentos backend del Bootcamp web 14 de Keepcoding.
 
+### Notas Javier práctica Backend AVANZADO:
+
+Puedes realizar login también desde el web site, lo he dejado igual a hacerlo por postman, es decir, verás que tan solo te devuelve el token
+
 ### NodeApp
 
 Install dependencies with:
 
 ```sh
 npm install
+```
+
+Copy .env.example to .env and customize your variables.
+
+```sh
+cp .env.example .env
 ```
 
 Initialize the database with:
