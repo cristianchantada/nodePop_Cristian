@@ -1,10 +1,12 @@
 {
 	"Bienvenido a": "Bienvenido a",
+	", el lugar donde vender trastos que no quieres y comprar cosas inservibles.": ", el lugar donde vender trastos que no quieres y comprar cosas inservibles.",
 	"Nombre": "Nombre",
 	"Precio": "Precio",
 	"Etiquetas": "Etiquetas",
 	"Foto": "Foto",
 	"Compro": "Compro",
 	"Vendo": "Vendo",
-	"Venta / Compra": "Venta / Compra"
+	"Venta / Compra": "Venta / Compra",
+	"Bienvenido a ": "Bienvenido a "
 }

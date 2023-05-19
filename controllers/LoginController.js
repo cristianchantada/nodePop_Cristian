@@ -26,6 +26,7 @@ class LoginController {
             });
 
             res.json({token: signedToken});
+            return;
 
         } catch(err) {
             next(err);

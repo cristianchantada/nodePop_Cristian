@@ -1,10 +1,11 @@
 {
-	"Bienvenido a": "Welcome to",
+	"Bienvenido a ": "Welcome to ",
 	"Nombre": "Name",
 	"Precio": "Price",
 	"Etiquetas": "Tags",
 	"Foto": "Photo",
 	"Compro": "Buy",
 	"Vendo": "Sell",
-	"Venta / Compra": "Sell / Buy"
+	"Venta / Compra": "Sell / Buy",
+	", el lugar donde vender trastos que no quieres y comprar cosas inservibles.": ", the place to sell unwanted junk and buy useless things."
 }
